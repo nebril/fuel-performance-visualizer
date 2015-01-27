@@ -25,6 +25,6 @@ angular
         controller: 'TimeReportCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/time-report'
       });
   });
