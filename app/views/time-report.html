@@ -1,1 +1,5 @@
-reporting time
+<ul>
+		<li class="test-chart-item" ng-repeat="test in tests">
+			<div ac-chart="chartType" ac-data="test" ac-config="config" class="chart" id="test{{$index}}"></div>
+		</li>
+</ul>
