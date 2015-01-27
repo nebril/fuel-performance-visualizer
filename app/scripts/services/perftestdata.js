@@ -33,6 +33,7 @@ angular.module('fuelPerformanceVisualizerApp')
 					series: [f],
 					data: _(rows)
 						.filter(function(row) { return row.date.length > 0; })
+						.filter(function(row) { return row[f].length > 0; })
 						.map(function(row){
 							return {
 								x: row.date,
