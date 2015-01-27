@@ -36,7 +36,7 @@ angular.module('fuelPerformanceVisualizerApp')
 						.map(function(row){
 							return {
 								x: row.date,
-								y: [row[f]]
+								y: [row[f]*1000]
 							};
 						})
 						.value(),
