@@ -8,7 +8,7 @@
  * Controller of the fuelPerformanceVisualizerApp
  */
 angular.module('fuelPerformanceVisualizerApp')
-.controller('TimeReportCtrl', function ($scope) {
+.controller('TimeReportCtrl', function ($scope, PerfTestData) {
 	$scope.config = {
 		title: '',
 		tooltips: true,
@@ -26,81 +26,9 @@ angular.module('fuelPerformanceVisualizerApp')
 
 	$scope.chartType = 'line';
 
-	$scope.tests = [
-	{
-		'series': [
-			'test1',
-		],
-		'data': [
-			{
-				'x': '1am',
-				'y': [4],
-			},
-			{
-				'x': '2am',
-				'y': [24],
-			},
-			{
-				'x': '3am',
-				'y': [33],
-			},
-			{
-				'x': '4am',
-				'y': [12],
-			},
-		
-		]
-	},
-	{
-		'series': [
-			'test2',
-		],
-		'data': [
-			{
-				'x': '1am',
-				'y': [4],
-			},
-			{
-				'x': '2am',
-				'y': [24],
-			},
-			{
-				'x': '3am',
-				'y': [33],
-			},
-			{
-				'x': '4am',
-				'y': [12],
-			},
-		
-		]
-	},
-	{
-		'series': [
-			'test3',
-		],
-		'data': [
-			{
-				'x': '1am',
-				'y': [4],
-			},
-			{
-				'x': '2am',
-				'y': [24],
-			},
-			{
-				'x': '3am',
-				'y': [33],
-			},
-			{
-				'x': '4am',
-				'y': [12],
-			},
-		
-		]
-	},
-	];
+	$scope.tests = [];
 
-
-
+	PerfTestData.then(function(value) {
+		$scope.tests = value;
+	});
 });
