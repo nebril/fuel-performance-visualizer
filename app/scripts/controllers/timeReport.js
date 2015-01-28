@@ -10,7 +10,6 @@
 angular.module('fuelPerformanceVisualizerApp')
 .controller('TimeReportCtrl', function ($scope, PerfTestData) {
 	$scope.config = {
-		title: '',
 		tooltips: true,
 		labels: false,
 		mouseover: function() {},
@@ -20,8 +19,7 @@ angular.module('fuelPerformanceVisualizerApp')
 			display: true,
 			position: 'left'
 		},
-		innerRadius: 0,
-		lineLegend: 'lineEnd' // can be also 'traditional'
+		lineLegend: 'traditional' // can be also 'traditional'
 	};
 
 	$scope.chartType = 'line';

@@ -9,17 +9,16 @@
  */
 angular.module('fuelPerformanceVisualizerApp')
 .factory('PerfTestData', function ($q) {
-	var url = "http://localhost:9000/test_report.csv";
+	var url = 'http://localhost:9000/test_report.csv';
 
 	var deferred = $q.defer();
-	var date_field_name = 'date';
+	var dateFieldName = 'date';
+	var unitMultiplier = 1000;
 
 	Papa.parse(url, {
 		download: true,
 		header: true,
 		complete: function(results) {
-			console.log(results.data);
-			console.log(results);
 			var rows = results.data;
 			var fields = results.meta.fields;
 
@@ -27,27 +26,25 @@ angular.module('fuelPerformanceVisualizerApp')
 
 
 			chartData = _(fields)
-			.without(date_field_name)
+			.without(dateFieldName)
 			.map(function(f){ 
 				return {
-					series: [f],
+					series: ['time[ms]'],
 					data: _(rows)
 						.filter(function(row) { return row.date.length > 0; })
 						.filter(function(row) { return row[f].length > 0; })
 						.map(function(row){
 							return {
 								x: row.date,
-								y: [row[f]*1000]
+								y: [row[f]*unitMultiplier]
 							};
 						})
 						.value(),
+					name: f
 				};	
 			})
 			.value();
 
-			console.log(chartData);
-
-			
 			deferred.resolve(chartData);
 			/*
 			deferred.resolve([
