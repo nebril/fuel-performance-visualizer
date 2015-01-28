@@ -1,5 +1,7 @@
+Search: <input ng-model="search.name">
 <ul>
-		<li class="test-chart-item" ng-repeat="test in tests">
+		<li class="test-chart-item" ng-repeat="test in tests | filter:search">
+			<h4>{{test.name}}</h4>
 			<div ac-chart="chartType" ac-data="test" ac-config="config" class="chart" id="test{{$index}}"></div>
 		</li>
 </ul>
