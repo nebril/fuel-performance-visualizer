@@ -14,6 +14,7 @@ angular.module('fuelPerformanceVisualizerApp')
 	var deferred = $q.defer();
 	var dateFieldName = 'date';
 	var unitMultiplier = 1000;
+	var dataShowed = 5;
 
 	Papa.parse(url, {
 		download: true,
@@ -35,11 +36,11 @@ angular.module('fuelPerformanceVisualizerApp')
 						.filter(function(row) { return row[f].length > 0; })
 						.map(function(row){
 							return {
-								x: row.date,
+								x: moment(row.date).format('YYYY-MM-DD HH:mm'),
 								y: [row[f]*unitMultiplier]
 							};
 						})
-						.value(),
+						.value().slice(-(dataShowed + 1)),
 					name: f
 				};	
 			})
