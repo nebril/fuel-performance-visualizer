@@ -29,4 +29,17 @@ angular.module('fuelPerformanceVisualizerApp')
 	PerfTestData.then(function(value) {
 		$scope.tests = value;
 	});
+
+	$scope.datapoints = 100;
+
+	var reload_charts = function() {
+		_.forEach($scope.tests, function(test){
+			var slicer = - $scope.datapoints;
+			test.data = test.originalData.slice(slicer);
+			console.log(test.originalData.slice(slicer));
+		});
+	};
+
+	$scope.$watch('tests', reload_charts);
+	$scope.$watch('datapoints', reload_charts);
 });
