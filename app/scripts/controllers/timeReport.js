@@ -30,7 +30,7 @@ angular.module('fuelPerformanceVisualizerApp')
 		$scope.tests = value;
 	});
 
-	$scope.datapoints = 100;
+	$scope.datapoints = 5;
 
 	var reload_charts = function() {
 		_.forEach($scope.tests, function(test){
