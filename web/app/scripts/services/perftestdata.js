@@ -8,8 +8,9 @@
  * Service in the fuelPerformanceVisualizerApp.
  */
 angular.module('fuelPerformanceVisualizerApp')
-.factory('PerfTestData', function ($q) {
-	var url = 'http://localhost:9000/test_report.csv';
+.factory('PerfTestData', function ($q, $location) {
+	var absUrl = $location.absUrl();
+	var url = absUrl.slice(0, absUrl.indexOf('#'))  + 'test_report.csv';
 
 	var deferred = $q.defer();
 	var dateFieldName = 'date';
