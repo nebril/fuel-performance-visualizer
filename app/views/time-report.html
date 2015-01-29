@@ -1,5 +1,5 @@
 Search: <input ng-model="search.name">
-Show last: <input type="number" ng-model="datapoints">
+Show last: <input type="number" min="1" ng-model="datapoints">
 <ul>
 		<li class="test-chart-item" ng-repeat="test in tests | filter:search">
 			<h4>{{test.name}}</h4>
