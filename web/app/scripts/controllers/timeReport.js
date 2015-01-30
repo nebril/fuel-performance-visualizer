@@ -36,7 +36,6 @@ angular.module('fuelPerformanceVisualizerApp')
 		_.forEach($scope.tests, function(test){
 			var slicer = - $scope.datapoints;
 			test.data = test.originalData.slice(slicer);
-			console.log(test.originalData.slice(slicer));
 		});
 	};
 
