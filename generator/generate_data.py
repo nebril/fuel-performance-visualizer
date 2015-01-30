@@ -15,9 +15,9 @@ CSV_TARGET_PATH = '/usr/share/nginx/html/test_report.csv'
 
 
 try:
-    with open('build_number') as bn_file:
+    with open('build_number', 'r') as bn_file:
         previous_build_number = int(bn_file.read())
-except IOError:
+except IOError, ValueError:
     previous_build_number = 0
 
 current_build_number = json.loads(urllib.urlopen(BUILD_URL).read())['number']
