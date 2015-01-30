@@ -5,7 +5,7 @@ import urllib
 
 
 BUILD_URL = ('https://fuel-jenkins.mirantis.com/job/'
-            'nailgun_performance_tests/lastBuild/api/json')
+             'nailgun_performance_tests/lastBuild/api/json')
 
 CSV_URL = ('https://fuel-jenkins.mirantis.com/job/nailgun_performance_tests'
            '/lastSuccessfulBuild/artifact/nailgun'
@@ -25,4 +25,4 @@ current_build_number = json.loads(urllib.urlopen(BUILD_URL).read())['number']
 if current_build_number > previous_build_number:
     urllib.urlretrieve(CSV_URL, CSV_TARGET_PATH)
     with open('build_number', 'w') as bn_file:
-        bn_file.write(current_build_number)
+        bn_file.write(str(current_build_number))
