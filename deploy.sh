@@ -1,6 +1,8 @@
 #!/bin/bash
+nvm use 0.10
 git pull
 cd web
 grunt build
-sudo rm -rf /usr/share/nginx/html/*
-sudo cp -r dist/* /usr/share/nginx/html
+rm -rf /usr/share/nginx/html/*
+cp -r dist/* /usr/share/nginx/html
+python generator/generate_data.py
