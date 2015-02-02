@@ -39,6 +39,16 @@ angular.module('fuelPerformanceVisualizerApp')
 		});
 	};
 
+	$scope.bigTest = null;
+	$scope.selectBigTest = function(t) {
+		$scope.showBigTest = true;
+		$scope.bigTest = t;
+	};
+	$scope.deselectBigTest = function() {
+		$scope.showBigTest = false;
+	};
+	$scope.showBigTest = false;
+
 	$scope.$watch('tests', reload_charts);
 	$scope.$watch('datapoints', reload_charts);
 });

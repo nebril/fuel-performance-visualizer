@@ -108,12 +108,41 @@ ul {
 
 	li.test-chart-item {
 		display: inline-block;
+		width: 45%;
+		margin-right: 2.5%;
+		margin-left: 2.5%;
+		padding: 5px;
+
+		h4 {
+			word-wrap: break-word;
+		}
+
+		.chart {
+			width: 500px;
+			height: 250px;
+		}
+
+		&:hover {
+			background-color: lightgray;
+		}
+	}
+}
+
+.selected-chart {
+		.closebutton {
+			cursor: pointer;
+			float:right;
+			color: red;
+			font-size: 40px;
+		}
+		h4 {
+			word-wrap: break-word;
+		}
 
 		.chart {
 			width: 1000px;
 			height: 500px;
 		}
-	}
 }
 
 

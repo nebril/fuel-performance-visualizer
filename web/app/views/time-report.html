@@ -1,7 +1,13 @@
 Search: <input ng-model="search.name">
 Show last: <input type="number" min="1" ng-model="datapoints">
+<div class="selected-chart" ng-if="showBigTest">
+	<span class="closebutton" ng-click="deselectBigTest()">x</span>
+	<h4>{{bigTest.name}}</h4>
+	<div ac-chart="chartType" ac-data="bigTest" ac-config="config" class="chart" id="bigTest"></div>
+</div>
+
 <ul>
-		<li class="test-chart-item" ng-repeat="test in tests | filter:search">
+		<li class="test-chart-item" ng-repeat="test in tests | filter:search" ng-click="selectBigTest(test)">
 			<h4>{{test.name}}</h4>
 			<div ac-chart="chartType" ac-data="test" ac-config="config" class="chart" id="test{{$index}}"></div>
 		</li>
