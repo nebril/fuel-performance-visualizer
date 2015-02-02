@@ -19,7 +19,8 @@ angular.module('fuelPerformanceVisualizerApp')
 			display: true,
 			position: 'left'
 		},
-		lineLegend: 'traditional' // can be also 'traditional'
+		lineLegend: 'traditional',
+		colors: [],
 	};
 
 	$scope.chartType = 'line';
@@ -32,10 +33,11 @@ angular.module('fuelPerformanceVisualizerApp')
 
 	$scope.datapoints = 5;
 
-	var reload_charts = function() {
+	var reloadCharts = function() {
 		_.forEach($scope.tests, function(test){
 			var slicer = - $scope.datapoints;
 			test.data = test.originalData.slice(slicer);
+			test.config = $scope.getConfig(test);
 		});
 	};
 
@@ -49,6 +51,23 @@ angular.module('fuelPerformanceVisualizerApp')
 	};
 	$scope.showBigTest = false;
 
-	$scope.$watch('tests', reload_charts);
-	$scope.$watch('datapoints', reload_charts);
+	$scope.$watch('tests', reloadCharts);
+	$scope.$watch('datapoints', reloadCharts);
+
+	var stringToColour = function(str) {
+		for (var i = 0, hash = 0; i < str.length; hash = str.charCodeAt(i++) + ((hash << 5) - hash));
+		for (var i = 0, colour = "#"; i < 3; colour += ("00" + ((hash >> i++ * 8) & 0xFF).toString(16)).slice(-2));
+		return colour;
+	};	
+
+	$scope.getConfig = function(test) {
+		var config = $scope.config;
+		if(test) {
+			config = (angular.extend({}, $scope.config, {colors: [stringToColour(test['name'])]}));
+		} else {
+			config = $scope.config;
+		}
+		return config;
+
+	};
 });
