@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('fuelPerformanceVisualizerApp')
-.controller('TimeReportCtrl', function ($scope, PerfTestData) {
+.controller('TimeReportCtrl', function ($scope, testData) {
+	console.log(testData);
 	$scope.config = {
 		tooltips: true,
 		labels: false,
@@ -18,11 +19,7 @@ angular.module('fuelPerformanceVisualizerApp')
 
 	$scope.chartType = 'line';
 
-	$scope.tests = [];
-
-	PerfTestData.then(function(value) {
-		$scope.tests = value;
-	});
+	$scope.tests = testData;
 
 	$scope.datapoints = 5;
 
@@ -44,7 +41,6 @@ angular.module('fuelPerformanceVisualizerApp')
 	};
 	$scope.showBigTest = false;
 
-	$scope.$watch('tests', reloadCharts);
 	$scope.$watch('datapoints', reloadCharts);
 
 	var stringToColour = function(str) {

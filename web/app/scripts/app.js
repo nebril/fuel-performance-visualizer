@@ -22,7 +22,12 @@ angular
       })
       .when('/time-report', {
         templateUrl: 'views/time-report.html',
-        controller: 'TimeReportCtrl'
+        controller: 'TimeReportCtrl',
+		resolve: {
+			testData: function(PerfTestData) {
+				return PerfTestData;
+			}
+		},
       })
       .when('/graph', {
         templateUrl: 'views/graph.html',
