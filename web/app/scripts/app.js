@@ -24,6 +24,10 @@ angular
         templateUrl: 'views/time-report.html',
         controller: 'TimeReportCtrl'
       })
+      .when('/graph', {
+        templateUrl: 'views/graph.html',
+        controller: 'CallGraphController'
+      })
       .otherwise({
         redirectTo: '/time-report'
       });
