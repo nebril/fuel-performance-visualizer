@@ -31,7 +31,24 @@ angular
       })
       .when('/graph', {
         templateUrl: 'views/graph.html',
-        controller: 'CallGraphController'
+        controller: 'CallGraphController',
+		resolve: {
+			availableGraphs: function($location) {
+				var absUrl = $location.absUrl();
+				var url = absUrl.slice(0, absUrl.indexOf('#'))  + 'custom.json';
+				// TODO mkwiek: get actual list of graphs
+				return [
+					{
+						name: 'graph',
+						path: url,
+					},	
+					{
+						name: 'graph2',
+						path: url,
+					},	
+				];
+			}
+		}
       })
       .otherwise({
         redirectTo: '/time-report'

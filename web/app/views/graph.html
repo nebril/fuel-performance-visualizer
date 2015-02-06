@@ -1,1 +1,4 @@
-<div> graph </div>
+<ul>
+	<li ng-repeat="graph in graphs" ng-click="selectGraph(graph)">{{ graph.name }}</li>
+</ul>
+<call-graph graph="graphData" func-name="funcName">graph</call-graph>
