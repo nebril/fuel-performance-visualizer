@@ -2,7 +2,6 @@
 
 angular.module('fuelPerformanceVisualizerApp')
 .controller('TimeReportCtrl', function ($scope, testData) {
-	console.log(testData);
 	$scope.config = {
 		tooltips: true,
 		labels: false,
@@ -52,7 +51,7 @@ angular.module('fuelPerformanceVisualizerApp')
 	$scope.getConfig = function(test) {
 		var config = $scope.config;
 		if(test) {
-			config = (angular.extend({}, $scope.config, {colors: [stringToColour(test['name'])]}));
+			config = (angular.extend({}, $scope.config, {colors: [stringToColour(test.name)]}));
 		} else {
 			config = $scope.config;
 		}
