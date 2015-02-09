@@ -41,11 +41,11 @@ angular
 					{
 						name: 'graph',
 						path: url,
-					},	
+					},
 					{
 						name: 'graph2',
 						path: url,
-					},	
+					},
 				];
 			}
 		}

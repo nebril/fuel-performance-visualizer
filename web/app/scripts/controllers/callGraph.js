@@ -1,12 +1,19 @@
 'use strict';
 
 angular.module('fuelPerformanceVisualizerApp')
-.controller('CallGraphController', function ($scope, availableGraphs) {
+.controller('CallGraphController', function ($scope, $http, availableGraphs) {
 	$scope.graphs = availableGraphs;
 	$scope.funcName = 'runapp';
-	$scope.graphData = { trololo: 'trolo'};
+	$scope.selectedGraph = null;
 
 	$scope.selectGraph = function(graph) {
-		console.log(graph);	
+		$http.get(graph.path)
+			.success(function(data) {
+				$scope.graphData = data;
+				$scope.selectedGraph = graph;
+			})
+			.error(function() {
+				console.error('Cold not load graph');
+			});
 	};
 });

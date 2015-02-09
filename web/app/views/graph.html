@@ -1,4 +1,15 @@
-<ul>
-	<li ng-repeat="graph in graphs" ng-click="selectGraph(graph)">{{ graph.name }}</li>
-</ul>
-<call-graph graph="graphData" func-name="funcName">graph</call-graph>
+<div class="col-md-1 graphs-menu">
+	<ul class="nav nav-pills nav-stacked">
+		<li ng-repeat="graph in graphs"
+			ng-class="{active: graph.name===selectedGraph.name}"
+			role="presentation"
+		>
+			<a ng-click="selectGraph(graph)">
+				{{ graph.name }}
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="col-md-11">
+	<call-graph graph="graphData" func-name="funcName">graph</call-graph>
+</div>
