@@ -25,3 +25,6 @@
 <div class="col-md-11">
 	<call-graph graph="graphData" func-name="funcName">graph</call-graph>
 </div>
+<div class="col-md-12" ng-show="selectedGraph !== null">
+	<a ng-href="{{selectedGraph.originalFile}}">original data</a>
+</div>
