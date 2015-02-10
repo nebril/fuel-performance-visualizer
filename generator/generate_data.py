@@ -47,10 +47,6 @@ if current_build_number >= previous_build_number:
 
     for filename in arts:
         print filename
-        #urllib.urlretrieve(
-        #    LAST_BUILD_TAR_BASE + filename,
-        #    DOT_TARGET_DIR + filename 
-        #)
         job = jobs.ProcessArtifactJob(
             LAST_BUILD_TAR_BASE + filename,
             DOT_TARGET_DIR,
@@ -59,6 +55,5 @@ if current_build_number >= previous_build_number:
 
         pool.put(job)
 
-        #subprocess.call(["tar", "-zxvf", DOT_TARGET_DIR + filename, '-C', DOT_TARGET_DIR])
-
     pool.shutdown()
+    pool.wait()
