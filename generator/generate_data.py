@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 
 import json
+import os
+import shutil
 import urllib
-import subprocess
+import workerpool
 
+import jobs
 
-LAST_BUILD_URL = ('https://fuel-jenkins.mirantis.com/job/'
-             'nailgun_performance_tests/lastBuild/api/json')
+LAST_BUILD_URL_BASE = ('https://fuel-jenkins.mirantis.com/job/'
+             'nailgun_performance_tests/126/')
 
-LAST_BUILD_TAR_BASE = ('https://fuel-jenkins.mirantis.com/job/'
-                       'nailgun_performance_tests/lastBuild/artifact/'
-                       'results/results/')
+LAST_BUILD_INFO = LAST_BUILD_URL_BASE + 'api/json'
 
-CSV_URL = ('https://fuel-jenkins.mirantis.com/job/nailgun_performance_tests'
-           '/lastBuild/artifact/nailgun'
-           '/nailgun_perf_test_report.csv')
+LAST_BUILD_TAR_BASE = LAST_BUILD_URL_BASE + 'artifact/results/results/'
+
+CSV_URL = LAST_BUILD_URL_BASE + 'artifact/nailgun/nailgun_perf_test_report.csv'
 
 CSV_TARGET_PATH = '/usr/share/nginx/html/test_report.csv'
 
@@ -27,7 +28,7 @@ try:
 except (IOError, ValueError):
     previous_build_number = 0
 
-current_build_info = json.loads(urllib.urlopen(LAST_BUILD_URL).read())
+current_build_info = json.loads(urllib.urlopen(LAST_BUILD_INFO).read())
 
 current_build_number = current_build_info['number']
 
@@ -37,14 +38,27 @@ if current_build_number >= previous_build_number:
 
     #urllib.urlretrieve(CSV_URL, CSV_TARGET_PATH)
 
-    arts = [x for x in current_build_info['artifacts'] if 'tar.gz' in x['fileName']]
+    shutil.rmtree(DOT_TARGET_DIR)
+    os.mkdir(DOT_TARGET_DIR)
 
-    for artifact in arts:
-        filename = artifact['fileName']
+    arts = [x['fileName'] for x in current_build_info['artifacts'] if 'tar.gz' in x['fileName']]
+
+    pool = workerpool.WorkerPool(size=5)
+
+    for filename in arts:
         print filename
-        urllib.urlretrieve(
+        #urllib.urlretrieve(
+        #    LAST_BUILD_TAR_BASE + filename,
+        #    DOT_TARGET_DIR + filename 
+        #)
+        job = jobs.ProcessArtifactJob(
             LAST_BUILD_TAR_BASE + filename,
-            DOT_TARGET_DIR + filename 
+            DOT_TARGET_DIR,
+            filename
         )
 
-        subprocess.call(["tar", "-zxvf", DOT_TARGET_DIR + filename, '-C', DOT_TARGET_DIR])
+        pool.put(job)
+
+        #subprocess.call(["tar", "-zxvf", DOT_TARGET_DIR + filename, '-C', DOT_TARGET_DIR])
+
+    pool.shutdown()
