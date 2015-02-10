@@ -32,28 +32,41 @@ current_build_info = json.loads(urllib.urlopen(LAST_BUILD_INFO).read())
 
 current_build_number = current_build_info['number']
 
+#todo: change comparison
 if current_build_number >= previous_build_number:
     with open('build_number', 'w') as bn_file:
         bn_file.write(str(current_build_number))
 
+    #todo: uncomment
     #urllib.urlretrieve(CSV_URL, CSV_TARGET_PATH)
 
-    shutil.rmtree(DOT_TARGET_DIR)
-    os.mkdir(DOT_TARGET_DIR)
+    #shutil.rmtree(DOT_TARGET_DIR)
+    #os.mkdir(DOT_TARGET_DIR)
 
     arts = [x['fileName'] for x in current_build_info['artifacts'] if 'tar.gz' in x['fileName']]
 
-    pool = workerpool.WorkerPool(size=5)
+    #pool = workerpool.WorkerPool(size=5)
 
-    for filename in arts:
-        print filename
-        job = jobs.ProcessArtifactJob(
-            LAST_BUILD_TAR_BASE + filename,
-            DOT_TARGET_DIR,
-            filename
-        )
+    #for filename in arts:
+    #    print filename
+    #    job = jobs.DownloadArtifactJob(
+    #        LAST_BUILD_TAR_BASE + filename,
+    #        DOT_TARGET_DIR,
+    #        filename
+    #    )
 
-        pool.put(job)
+    #    pool.put(job)
 
-    pool.shutdown()
-    pool.wait()
+    #pool.wait()
+
+    tests = [x for x in os.listdir(DOT_TARGET_DIR) if 'tar.gz' not in x and
+             'txt' not in x]
+
+    for test in tests:
+        print test
+        job = jobs.ProcessTestJob(DOT_TARGET_DIR + test) 
+        job.run()
+        #pool.put(job)
+
+    #pool.wait()
+    #pool.shutdown()

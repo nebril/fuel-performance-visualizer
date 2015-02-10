@@ -44,7 +44,7 @@ class Dot2JSONParser(object):
                 })
 
             except (ValueError, AttributeError):
-                sys.stderr.write("Skipped {0}".format(node.get_name()))
+                sys.stderr.write("Skipped {0}\n".format(node.get_name()))
                 pass
         return nodes
 
