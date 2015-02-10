@@ -11,5 +11,8 @@ class ProcessArtifactJob(workerpool.Job):
         self.filename = filename
     def run(self):
         urllib.urlretrieve(self.url, self.dir + self.filename)
-        subprocess.call(["tar", "-zxvf", self.dir + self.filename, '-C',
+        subprocess.call(["tar", "-zxvf", self.dir + self.filename,
+                         '--strip-components', '6', '-C',
                          self.dir])
+
+        
