@@ -23,7 +23,7 @@ angular.module('fuelPerformanceVisualizerApp')
 				minLen: function( edge ){ return 2; }, // number of ranks to keep between the source and target of the edge
 
 				// general layout options
-				fit: true, // whether to fit to viewport
+				fit: false, // whether to fit to viewport
 				padding: 100, // fit padding
 				animate: false, // whether to transition the node positions
 				animationDuration: 500, // duration of animation in ms if enabled
