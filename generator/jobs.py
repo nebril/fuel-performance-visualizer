@@ -56,3 +56,22 @@ class ProcessTestJob(workerpool.Job):
                     path=json_filename,
                     originalFile="original"
                 ))
+
+class ProcessGraphJob(workerpool.Job):
+    def __init__(self, filename, test_name):
+        self.filename = directory
+        self.test_name = test_name
+
+    def run(self):
+        json_filename = self.filename + '.json'
+        parser = dot2jsonparser.Dot2JSONParser(self.filename)
+
+        with open(json_filename, 'w') as json_file:
+            print "parsing " + self.filename
+            json_file.write(parser.parse())
+            print "saved " + json_filename + '.json'
+            self.graph = dict(
+                name=dot,
+                path=json_filename,
+                originalFile="original"
+            )
