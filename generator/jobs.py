@@ -23,8 +23,10 @@ class DownloadArtifactJob(workerpool.Job):
 
 
 class ProcessTestJob(workerpool.Job):
-    def __init__(self, directory):
+    def __init__(self, directory, test_name):
         self.dir = directory
+        self.test_name = test_name
+        self.graphs = []
 
     def _get_average_run(self):
         runs = os.listdir(self.dir)
@@ -42,10 +44,15 @@ class ProcessTestJob(workerpool.Job):
                 re.search(r'\.dot$', x)]
         for dot in dots:
             dot_filename = os.path.join(self.dir, run, dot)
-            json_filename = os.path.join(self.dir, dot) + '.json
+            json_filename = os.path.join(self.dir, dot) + '.json'
             parser = dot2jsonparser.Dot2JSONParser(dot_filename)
 
             with open(json_filename, 'w') as json_file:
                 print "parsing " + dot_filename
                 json_file.write(parser.parse())
-                print "saved " + json_filename + ".json"
+                print "saved " + json_filename + '.json'
+                self.graphs.append(dict(
+                    name=dot,
+                    path=json_filename,
+                    originalFile="original"
+                ))
