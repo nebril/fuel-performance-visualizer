@@ -29,7 +29,7 @@ class ProcessTestJob(workerpool.Job):
         self.graphs = []
 
     def _get_average_run(self):
-        runs = os.listdir(self.dir)
+        runs = [x for x in os.listdir(self.dir) if re.search(r'^run', x)]
         
         #todo: add logic to this
         if len(runs) == 1:
