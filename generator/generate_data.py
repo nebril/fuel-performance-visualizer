@@ -24,7 +24,7 @@ CSV_TARGET_PATH = '/usr/share/nginx/html/test_report.csv'
 
 DOT_TARGET_DIR = 'dot/'
 
-DOT_INDEX_PATH = 'graphs.json'
+DOT_INDEX_PATH = 'dot/graphs.json'
 
 
 try:
