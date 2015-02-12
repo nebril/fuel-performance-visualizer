@@ -37,13 +37,11 @@ current_build_info = json.loads(urllib.urlopen(LAST_BUILD_INFO).read())
 
 current_build_number = current_build_info['number']
 
-#todo: change comparison
-if current_build_number >= previous_build_number:
+if current_build_number > previous_build_number:
     with open('build_number', 'w') as bn_file:
         bn_file.write(str(current_build_number))
 
-    #todo: uncomment
-    #urllib.urlretrieve(CSV_URL, CSV_TARGET_PATH)
+    urllib.urlretrieve(CSV_URL, CSV_TARGET_PATH)
 
     shutil.rmtree(DOT_TARGET_DIR)
     os.mkdir(DOT_TARGET_DIR)
@@ -53,7 +51,6 @@ if current_build_number >= previous_build_number:
     pool = workerpool.WorkerPool(size=2)
 
     for filename in arts:
-        print filename
         job = jobs.DownloadArtifactJob(
             LAST_BUILD_TAR_BASE + filename,
             DOT_TARGET_DIR,
