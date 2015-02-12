@@ -1,5 +1,5 @@
 <div class="col-md-12">
-	<form class="navbar-form navbar-left" role="search" ng-submit="funcName =
+	<form class="navbar-form navbar-right" role="search" ng-submit="funcName =
 		partialFuncName">
 		<span class="glyphicon glyphicon-search"></span>
 		<div class="form-group">
@@ -10,19 +10,28 @@
 			btn-default">Go</button>
 	</form>
 </div>
-<div class="col-md-1 graphs-menu">
+<div class="col-md-2 graphs-menu">
+	<input ng-model="search.test_name">
 	<ul class="nav nav-pills nav-stacked">
-		<li ng-repeat="graph in graphs"
-			ng-class="{active: graph.name===selectedGraph.name}"
+		<li ng-repeat="(name, graphs) in filterByName(tests)"
 			role="presentation"
 		>
-			<a ng-click="selectGraph(graph)">
-				{{ graph.name }}
+			<a>
+				{{ name }}
 			</a>
+			<ul class="nav nav-pills nav-stacked">
+				<li ng-repeat="graph in graphs"
+					ng-class="{active: graph.graph.path===selectedGraph.path}"
+				>
+				<a ng-click="selectGraph(graph.graph)" class="graph">
+						{{graph.graph.path.slice(graph.graph.path.indexOf('run'))}}
+					</a>
+				</li>
+			</ul>
 		</li>
 	</ul>
 </div>
-<div class="col-md-11">
+<div class="col-md-10">
 	<call-graph graph="graphData" func-name="funcName">graph</call-graph>
 </div>
 <div class="col-md-12" ng-show="selectedGraph !== null">

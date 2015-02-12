@@ -33,24 +33,13 @@ angular
         templateUrl: 'views/graph.html',
         controller: 'CallGraphController',
 		resolve: {
-			availableGraphs: function($location) {
+			availableGraphs: function($location, $http) {
 				var absUrl = $location.absUrl();
-				var url = absUrl.slice(0, absUrl.indexOf('#'))  + 'custom.json';
-				var original = absUrl.slice(0, absUrl.indexOf('#'))  + 'custom.prof';
+				var absUrlRoot = absUrl.slice(0, absUrl.indexOf('#'));
 
-				// TODO mkwiek: get actual list of graphs
-				return [
-					{
-						name: 'graph',
-						path: url,
-						originalFile: original,
-					},
-					{
-						name: 'graph2',
-						path: url,
-						originalFile: original,
-					},
-				];
+				var graphsUrl = absUrlRoot + 'dot/graphs.json';
+
+				return $http.get(graphsUrl);
 			}
 		}
       })

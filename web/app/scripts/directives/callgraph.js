@@ -113,6 +113,7 @@ angular.module('fuelPerformanceVisualizerApp')
 			};
 
 			var hideSiblings = function() {
+				this.select();
 				var siblings = this.incomers().outgoers().filter('node[id != "' + this.id() + '"]');
 				hideSubgraphAndNode.apply(siblings);
 				redrawGraph(this);

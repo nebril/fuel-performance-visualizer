@@ -1,19 +1,38 @@
 'use strict';
 
 angular.module('fuelPerformanceVisualizerApp')
-.controller('CallGraphController', function ($scope, $http, availableGraphs) {
-	$scope.graphs = availableGraphs;
-	$scope.funcName = 'runapp';
+.controller('CallGraphController', function ($scope, $http, $location, availableGraphs) {
+	var absUrl = $location.absUrl();
+	var absUrlRoot = absUrl.slice(0, absUrl.indexOf('#'));
+
+	$scope.tests = availableGraphs.data;
+	console.log($scope.graphs);
+	$scope.funcName = 'handle_class';
 	$scope.selectedGraph = null;
+	$scope.selectedNode = null;
+	$scope.search = {
+		test_name: ''
+	};
 
 	$scope.selectGraph = function(graph) {
-		$http.get(graph.path)
+		$http.get(absUrlRoot + graph.path)
 			.success(function(data) {
 				$scope.graphData = data;
 				$scope.selectedGraph = graph;
+				console.log($scope.selectedGraph);
 			})
 			.error(function() {
 				console.error('Cold not load graph');
 			});
+	};
+
+	$scope.filterByName = function(tests) {
+		var result = {};
+		for(var name in tests) {
+			if ($scope.search.test_name.length === 0 || (name.indexOf($scope.search.test_name) > -1)){
+				result[name] = tests[name];
+			}
+		}
+		return result;
 	};
 });
