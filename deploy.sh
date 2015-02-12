@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -ex
+
 nvm use 0.10
 git pull
 cd web
