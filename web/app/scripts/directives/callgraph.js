@@ -45,9 +45,9 @@ angular.module('fuelPerformanceVisualizerApp')
 				.css({
 					'content': 'data(label)',
 					'text-valign': 'center',
-					'color': 'white',
-					'text-outline-width': 2,
-					'text-outline-color': '#888',
+					'color': 'black',
+					'background-color' : '#BDECB6',
+					'border-color': '#BDECB6',
 					'width': 'mapData(percentage, 0, 100, 10, 200)',
 					'height': 'mapData(percentage, 0, 100, 10, 200)',
 					'border-width': 3,
@@ -65,8 +65,8 @@ angular.module('fuelPerformanceVisualizerApp')
 				})
 				.selector(':selected')
 				.css({
-					'background-color': 'black',
-					'line-color': 'black',
+					'background-color': '#A8F4E3',
+					'border-color': '#A8F4E3',
 				}),
 				layout: layout,
 				hideEdgesOnViewport: false,
