@@ -22,7 +22,7 @@ class DownloadArtifactJob(workerpool.Job):
                          self.dir])
 
 
-class ProcessTestJob(workerpool.Job):
+class GraphExtractor():
     def __init__(self, directory, test_name):
         self.dir = directory
         self.test_name = test_name
@@ -37,29 +37,16 @@ class ProcessTestJob(workerpool.Job):
         else:
             return runs[0]
 
-    def run(self):
+    def get_files(self):
         run = self._get_average_run()
-
-        dots = [x for x in os.listdir(os.path.join(self.dir, run)) if
+        return [os.path.join(self.dir, run, x) for x in 
+                os.listdir(os.path.join(self.dir, run)) if
                 re.search(r'\.dot$', x)]
-        for dot in dots:
-            dot_filename = os.path.join(self.dir, run, dot)
-            json_filename = os.path.join(self.dir, dot) + '.json'
-            parser = dot2jsonparser.Dot2JSONParser(dot_filename)
 
-            with open(json_filename, 'w') as json_file:
-                print "parsing " + dot_filename
-                json_file.write(parser.parse())
-                print "saved " + json_filename + '.json'
-                self.graphs.append(dict(
-                    name=dot,
-                    path=json_filename,
-                    originalFile="original"
-                ))
 
 class ProcessGraphJob(workerpool.Job):
     def __init__(self, filename, test_name):
-        self.filename = directory
+        self.filename = filename
         self.test_name = test_name
 
     def run(self):
@@ -69,9 +56,9 @@ class ProcessGraphJob(workerpool.Job):
         with open(json_filename, 'w') as json_file:
             print "parsing " + self.filename
             json_file.write(parser.parse())
-            print "saved " + json_filename + '.json'
+            print "saved " + json_filename
             self.graph = dict(
-                name=dot,
+                name=self.test_name,
                 path=json_filename,
                 originalFile="original"
             )
