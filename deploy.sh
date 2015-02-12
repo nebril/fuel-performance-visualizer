@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -ex
-
+. $NVM_DIR/nvm.sh
 nvm use 0.10
 git pull
 cd web
