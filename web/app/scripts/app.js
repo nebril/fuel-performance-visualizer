@@ -33,13 +33,9 @@ angular
         templateUrl: 'views/graph.html',
         controller: 'CallGraphController',
 		resolve: {
-			availableGraphs: function($location, $http) {
-				var absUrl = $location.absUrl();
-				var absUrlRoot = absUrl.slice(0, absUrl.indexOf('#'));
-
-				var graphsUrl = absUrlRoot + 'dot/graphs.json';
-
-				return $http.get(graphsUrl);
+			availableGraphs: function(AvailableGraphs) {
+				console.log(AvailableGraphs);
+				return AvailableGraphs;
 			}
 		}
       })

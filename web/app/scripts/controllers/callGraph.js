@@ -2,11 +2,11 @@
 
 angular.module('fuelPerformanceVisualizerApp')
 .controller('CallGraphController', function ($scope, $http, $location, availableGraphs) {
+	console.log(availableGraphs);
 	var absUrl = $location.absUrl();
 	var absUrlRoot = absUrl.slice(0, absUrl.indexOf('#'));
 
-	$scope.tests = availableGraphs.data;
-	console.log($scope.graphs);
+	$scope.tests = availableGraphs;
 	$scope.funcName = 'handle_class';
 	$scope.selectedGraph = null;
 	$scope.selectedNode = null;

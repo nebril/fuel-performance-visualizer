@@ -18,9 +18,6 @@ angular.module('fuelPerformanceVisualizerApp')
 			var resultHeight = viewportHeight - offsetTop;
 			theGraphElement.css('height', resultHeight + 'px');
 
-
-
-
 			var allcy, cy;
 
 			var dagreLayout = {

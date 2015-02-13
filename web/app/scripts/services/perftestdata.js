@@ -46,36 +46,7 @@ angular.module('fuelPerformanceVisualizerApp')
 			.value();
 
 			deferred.resolve(chartData);
-			/*
-			deferred.resolve([
-				{
-				'series': [
-					'test1',
-				],
-				'data': [
-					{
-					'x': '1am',
-					'y': [4],
-				},
-				{
-					'x': '2am',
-					'y': [24],
-				},
-				{
-					'x': '3am',
-					'y': [33],
-				},
-				{
-					'x': '4am',
-					'y': [12],
-				},
-
-				]
-			}
-			]);
-		   */
 		},
 	});	
 	return deferred.promise;
-
 });
