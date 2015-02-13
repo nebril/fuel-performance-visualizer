@@ -10,6 +10,17 @@ angular.module('fuelPerformanceVisualizerApp')
 			funcName: '=',
 		},
 		link: function postLink(scope, element, attrs) {
+			var theGraphElement = element.find('.thegraph');
+			var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+			var offsetTop = theGraphElement.offset().top
+
+			var resultHeight = viewportHeight - offsetTop;
+			theGraphElement.css('height', resultHeight + 'px');
+
+
+
+
 			var allcy, cy;
 
 			var dagreLayout = {
