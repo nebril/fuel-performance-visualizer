@@ -2,7 +2,6 @@
 
 angular.module('fuelPerformanceVisualizerApp')
 .controller('CallGraphController', function ($scope, $http, $location, availableGraphs) {
-	console.log(availableGraphs);
 	var absUrl = $location.absUrl();
 	var absUrlRoot = absUrl.slice(0, absUrl.indexOf('#'));
 
@@ -14,7 +13,7 @@ angular.module('fuelPerformanceVisualizerApp')
 		test_name: ''
 	};
 	$scope.graphSearch = {
-		graph: {path: ''}
+		graph: {handler_name: ''}
 	};
 
 	$scope.selectGraph = function(graph) {

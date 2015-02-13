@@ -34,7 +34,6 @@ angular
         controller: 'CallGraphController',
 		resolve: {
 			availableGraphs: function(AvailableGraphs) {
-				console.log(AvailableGraphs);
 				return AvailableGraphs;
 			}
 		}
