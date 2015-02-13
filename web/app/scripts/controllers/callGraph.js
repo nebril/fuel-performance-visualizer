@@ -13,13 +13,15 @@ angular.module('fuelPerformanceVisualizerApp')
 	$scope.search = {
 		test_name: ''
 	};
+	$scope.graphSearch = {
+		graph: {path: ''}
+	};
 
 	$scope.selectGraph = function(graph) {
 		$http.get(absUrlRoot + graph.path)
 			.success(function(data) {
 				$scope.graphData = data;
 				$scope.selectedGraph = graph;
-				console.log($scope.selectedGraph);
 			})
 			.error(function() {
 				console.error('Cold not load graph');

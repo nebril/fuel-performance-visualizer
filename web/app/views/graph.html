@@ -11,16 +11,17 @@
 	</form>
 </div>
 <div class="col-md-2 graphs-menu">
-	<input ng-model="search.test_name">
+	<input ng-model="search.test_name" placeholder="Test name">
+	<input ng-model="graphSearch.graph.path" placeholder="Handler name">
 	<ul class="nav nav-pills nav-stacked">
 		<li ng-repeat="(name, graphs) in filterByName(tests)"
 			role="presentation"
 		>
 			<a>
-				{{ name }}
+				<h5>{{ name }}</h5>
 			</a>
 			<ul class="nav nav-pills nav-stacked">
-				<li ng-repeat="graph in graphs"
+				<li ng-repeat="graph in graphs | filter:graphSearch"
 					ng-class="{active: graph.graph.path===selectedGraph.path}"
 				>
 				<a ng-click="selectGraph(graph.graph)" class="graph">
