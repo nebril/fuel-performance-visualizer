@@ -31,11 +31,19 @@ class GraphExtractor():
     def _get_average_run(self):
         runs = [x for x in os.listdir(self.dir) if re.search(r'^run', x)]
         
-        #todo: add logic to this
+        def run_to_time(run):
+            #todo mkwiek: retrieve actual time
+            return dict(
+                name=run,
+                time=1,
+            )
+
         if len(runs) == 1:
             return runs[0]
         else:
-            return runs[0]
+            sorted_runs = sorted(map(run_to_time, runs), key=lambda x: x['time'])
+            print sorted_runs
+            return sorted_runs[len(sorted_runs) / 2]['name']
 
     def get_files(self):
         run = self._get_average_run()

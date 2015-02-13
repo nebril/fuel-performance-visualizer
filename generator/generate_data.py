@@ -65,7 +65,6 @@ if current_build_number > previous_build_number:
     tests = [x for x in os.listdir(DOT_TARGET_DIR) if 'tar.gz' not in x and
              'txt' not in x]
 
-
     processing_jobs = []
     for test in tests:
         name = re.search(r'[^0-9._].*', test).group(0)
@@ -75,12 +74,11 @@ if current_build_number > previous_build_number:
             job = jobs.ProcessGraphJob(graph, name)
             processing_jobs.append(job)
 
-
     def run_job(job):
         job.run()
         return {'test_name': job.test_name, 'graph': job.graph}
 
-    process_pool = multiprocessing.Pool(2)
+    process_pool = multiprocessing.Pool(1)
 
     processed_data_index = process_pool.map(run_job, processing_jobs)
 
