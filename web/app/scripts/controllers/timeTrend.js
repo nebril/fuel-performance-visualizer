@@ -9,5 +9,6 @@ angular.module('fuelPerformanceVisualizerApp')
 		tooltips: true,
 		labels: false,
 		lineLegend: 'traditional',
+		colors: ['#FF0000'],
 	};
 });
