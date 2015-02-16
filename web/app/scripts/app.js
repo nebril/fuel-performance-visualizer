@@ -21,6 +21,18 @@ angular
         controller: 'MainCtrl'
       })
       .when('/time-report', {
+        redirectTo: '/time-report/charts'
+      })
+      .when('/time-report/trend', {
+        templateUrl: 'views/time-trend.html',
+        controller: 'TimeTrendCtrl',
+		resolve: {
+			testData: function(PerfTestDataNormalized) {
+				return PerfTestDataNormalized;
+			}
+		},
+      })
+      .when('/time-report/charts', {
         templateUrl: 'views/time-report.html',
         controller: 'TimeReportCtrl',
 		resolve: {
