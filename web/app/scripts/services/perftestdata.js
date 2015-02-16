@@ -28,7 +28,7 @@ angular.module('fuelPerformanceVisualizerApp')
 			chartData = _(fields)
 			.without(dateFieldName)
 			.map(function(f){ 
-				return {
+				var test = {
 					series: ['time[ms]'],
 					originalData: _(rows)
 						.filter(function(row) { return row.date.length > 0; })
@@ -43,7 +43,9 @@ angular.module('fuelPerformanceVisualizerApp')
 						})
 						.value(),
 					name: f
-				};	
+				};
+				test.lastDataPoint = test.originalData[test.originalData.length - 1].y[0];
+				return test;
 			})
 			.value();
 

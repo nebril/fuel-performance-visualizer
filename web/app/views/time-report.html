@@ -7,7 +7,7 @@ Show last: <input type="number" min="1" ng-model="datapoints">
 </div>
 
 <ul>
-		<li class="test-chart-item" ng-repeat="test in tests | filter:search" ng-click="selectBigTest(test)">
+	<li class="test-chart-item" ng-repeat="test in tests | filter:search | orderBy:'lastDataPoint':true" ng-click="selectBigTest(test)">
 			<h4>{{test.name}}</h4>
 			<div ac-chart="chartType" ac-data="test" ac-config="test.config" class="chart" id="test{{$index}}"></div>
 		</li>
