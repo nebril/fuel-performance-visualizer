@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fuelPerformanceVisualizerApp')
-.controller('TimeReportCtrl', function ($scope, testData) {
+.controller('TimeReportCtrl', function ($scope, $window, testData) {
 	var smallChartXLabels = 6;
 	var bigChartXLabels = 15;
 	$scope.config = {
@@ -38,6 +38,7 @@ angular.module('fuelPerformanceVisualizerApp')
 		$scope.showBigTest = true;
 		$scope.bigTest = t;
 		$scope.bigTest.config.xAxisMaxTicks = bigChartXLabels;
+		$window.scrollTo(0,0);
 	};
 	$scope.deselectBigTest = function() {
 		$scope.showBigTest = false;
