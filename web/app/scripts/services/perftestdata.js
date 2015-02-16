@@ -35,7 +35,7 @@ angular.module('fuelPerformanceVisualizerApp')
 						.filter(function(row) { return row[f].length > 0; })
 						.map(function(row){
 							return {
-								x: moment(row.date).format('MM-DD HH:mm'),
+								x: moment(row.date).format('MM-DD H'),
 								y: [row[f]*unitMultiplier]
 							};
 						})
