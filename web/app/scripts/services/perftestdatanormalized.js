@@ -42,17 +42,18 @@ angular.module('fuelPerformanceVisualizerApp')
 						var date = moment(row.date).format('MM-DD H');
 						return {
 							x: date,
-							y: _(testNames)
+							y: [_(testNames)
 								.map(function(name) {
-									return row[name]/maxValues[name]*unitMultiplier
-
+									return row[name]/maxValues[name];
 								})
-								.value(),
+								.reduce(function(sum, current){ return sum + current;}, 0) / testNames.length * unitMultiplier],
 							tooltip: date,
 						};
 					})
 					.value(),
 			};
+
+			console.log(chart);
 
 			deferred.resolve(chart);
 		},
