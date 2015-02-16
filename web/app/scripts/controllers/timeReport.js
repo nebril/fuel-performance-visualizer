@@ -28,6 +28,10 @@ angular.module('fuelPerformanceVisualizerApp')
 			test.data = test.originalData.slice(slicer);
 			test.config = $scope.getConfig(test);
 		});
+
+		if($scope.bigTest) {
+			$scope.bigTest.config.xAxisMaxTicks = bigChartXLabels;
+		}
 	};
 
 	$scope.bigTest = null;
@@ -43,6 +47,7 @@ angular.module('fuelPerformanceVisualizerApp')
 	$scope.deselectBigTest = function() {
 		$scope.showBigTest = false;
 		$scope.bigTest.config.xAxisMaxTicks = smallChartXLabels;
+		$scope.bigTest = null;
 	};
 	$scope.showBigTest = false;
 
