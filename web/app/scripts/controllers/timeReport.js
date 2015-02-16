@@ -2,18 +2,18 @@
 
 angular.module('fuelPerformanceVisualizerApp')
 .controller('TimeReportCtrl', function ($scope, testData) {
+	var smallChartXLabels = 6;
+	var bigChartXLabels = 15;
 	$scope.config = {
 		tooltips: true,
 		labels: false,
-		mouseover: function() {},
-		mouseout: function() {},
-		click: function() {},
 		legend: {
 			display: true,
-			position: 'left'
+			position: 'left',
 		},
 		lineLegend: 'traditional',
 		colors: [],
+		xAxisMaxTicks: smallChartXLabels,
 	};
 
 	$scope.chartType = 'line';
@@ -32,11 +32,16 @@ angular.module('fuelPerformanceVisualizerApp')
 
 	$scope.bigTest = null;
 	$scope.selectBigTest = function(t) {
+		if($scope.bigTest) {
+			$scope.bigTest.config.xAxisMaxTicks = smallChartXLabels;
+		}
 		$scope.showBigTest = true;
 		$scope.bigTest = t;
+		$scope.bigTest.config.xAxisMaxTicks = bigChartXLabels;
 	};
 	$scope.deselectBigTest = function() {
 		$scope.showBigTest = false;
+		$scope.bigTest.config.xAxisMaxTicks = smallChartXLabels;
 	};
 	$scope.showBigTest = false;
 
