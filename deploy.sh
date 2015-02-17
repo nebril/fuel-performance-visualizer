@@ -14,8 +14,3 @@ rm -rf 404.html  bower_components  favicon.ico  images  index.html  robots.txt  
 
 popd
 cp -r dist/* /usr/share/nginx/html
-
-popd
-python generator/generate_data.py
-
-mv dot /usr/share/nginx/html/dot
