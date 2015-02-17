@@ -23,6 +23,11 @@ angular.module('fuelPerformanceVisualizerApp')
 	if(typeof $rootScope.datapoints === 'undefined')
 		$rootScope.datapoints = 5;
 
+	if(typeof $rootScope.search === 'undefined')
+		$rootScope.search = {
+			    name: ''
+		};
+
 	var reloadCharts = function() {
 		_.forEach($scope.tests, function(test){
 			var slicer = - $scope.datapoints;
