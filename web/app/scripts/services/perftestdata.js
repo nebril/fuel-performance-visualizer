@@ -10,7 +10,7 @@
 angular.module('fuelPerformanceVisualizerApp')
 .factory('PerfTestData', function ($q, $location) {
 	var absUrl = $location.absUrl();
-	var url = absUrl.slice(0, absUrl.indexOf('#'))  + 'test_report.csv';
+	var url = absUrl.slice(0, absUrl.indexOf('#'))  + 'test_report.csv?date=' + moment().format();
 
 	var deferred = $q.defer();
 	var dateFieldName = 'date';

@@ -5,7 +5,7 @@ angular.module('fuelPerformanceVisualizerApp')
 	var absUrl = $location.absUrl();
 	var absUrlRoot = absUrl.slice(0, absUrl.indexOf('#'));
 
-	var graphsUrl = absUrlRoot + 'dot/graphs.json';
+	var graphsUrl = absUrlRoot + 'dot/graphs.json?date=' + moment().format();
 
 	var deferred = $q.defer();
 
