@@ -46,7 +46,11 @@ if current_build_number > previous_build_number:
 
     urllib.urlretrieve(CSV_URL, CSV_TARGET_PATH)
 
-    shutil.rmtree(DOT_TARGET_DIR)
+    try:
+        shutil.rmtree(DOT_TARGET_DIR)
+    except OSError:
+        pass
+
     os.mkdir(DOT_TARGET_DIR)
 
     arts = [x['fileName'] for x in current_build_info['artifacts'] if 'tar.gz' in x['fileName']]
