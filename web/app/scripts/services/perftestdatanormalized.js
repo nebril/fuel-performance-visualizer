@@ -36,7 +36,7 @@ angular.module('fuelPerformanceVisualizerApp')
 
 			var chart = {
 				series: testNames,
-				data: _(rows)
+				originalData: _(rows)
 					.filter(function(row) { return row.date.length > 0; })
 					.map(function(row){
 						var date = moment(row.date).format('MM-DD H');

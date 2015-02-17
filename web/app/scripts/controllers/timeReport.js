@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fuelPerformanceVisualizerApp')
-.controller('TimeReportCtrl', function ($scope, $window, testData) {
+.controller('TimeReportCtrl', function ($scope, $rootScope, $window, testData) {
 	var smallChartXLabels = 6;
 	var bigChartXLabels = 15;
 	$scope.config = {
@@ -20,7 +20,8 @@ angular.module('fuelPerformanceVisualizerApp')
 
 	$scope.tests = testData;
 
-	$scope.datapoints = 5;
+	if(typeof $rootScope.datapoints === 'undefined')
+		$rootScope.datapoints = 5;
 
 	var reloadCharts = function() {
 		_.forEach($scope.tests, function(test){
@@ -32,6 +33,7 @@ angular.module('fuelPerformanceVisualizerApp')
 		if($scope.bigTest) {
 			$scope.bigTest.config.xAxisMaxTicks = bigChartXLabels;
 		}
+		$rootScope.datapoints = $scope.datapoints;
 	};
 
 	$scope.bigTest = null;
