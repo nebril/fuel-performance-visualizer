@@ -6,6 +6,7 @@ import multiprocessing
 import os
 import re
 import shutil
+import subprocess
 import urllib
 import workerpool
 
@@ -23,6 +24,8 @@ CSV_URL = LAST_BUILD_URL_BASE + 'artifact/nailgun/nailgun_perf_test_report.csv'
 CSV_TARGET_PATH = '/usr/share/nginx/html/test_report.csv'
 
 DOT_TARGET_DIR = 'dot/'
+
+DOT_COPY_DIR = '/usr/share/nginx/html/dot'
 
 DOT_INDEX_PATH = 'dot/graphs.json'
 
@@ -87,3 +90,5 @@ if current_build_number > previous_build_number:
     graphs_index = {k: list(v) for k,v in itertools.groupby(processed_data_index, lambda x : x['test_name'])}
     with open(DOT_INDEX_PATH, 'w') as graphs_file:
         graphs_file.write(json.dumps(graphs_index))
+
+    subprocess.call(['mv', DOT_TARGET_DIR,  DOT_COPY_DIR])
