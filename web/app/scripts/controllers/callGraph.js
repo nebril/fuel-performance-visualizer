@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fuelPerformanceVisualizerApp')
-.controller('CallGraphController', function ($scope, $http, $location, availableGraphs) {
+.controller('CallGraphController', function ($scope, $rootScope, $http, $location, availableGraphs) {
 	var absUrl = $location.absUrl();
 	var absUrlRoot = absUrl.slice(0, absUrl.indexOf('#'));
 
@@ -9,12 +9,16 @@ angular.module('fuelPerformanceVisualizerApp')
 	$scope.funcName = 'handle_class';
 	$scope.selectedGraph = null;
 	$scope.selectedNode = null;
-	$scope.search = {
-		test_name: ''
-	};
-	$scope.graphSearch = {
-		graph: {handler_name: ''}
-	};
+
+	if(typeof $rootScope.testSearch === 'undefined')
+		$rootScope.testSearch = {
+			test_name: ''
+		};
+
+	if(typeof $rootScope.graphSearch === 'undefined')
+		$rootScope.graphSearch = {
+			graph: {handler_name: ''}
+		};
 
 	$scope.selectGraph = function(graph) {
 		$http.get(absUrlRoot + graph.path)
@@ -30,7 +34,7 @@ angular.module('fuelPerformanceVisualizerApp')
 	$scope.filterByName = function(tests) {
 		var result = {};
 		for(var name in tests) {
-			if ($scope.search.test_name.length === 0 || (name.indexOf($scope.search.test_name) > -1)){
+			if ($scope.testSearch.test_name.length === 0 || (name.indexOf($scope.testSearch.test_name) > -1)){
 				result[name] = tests[name];
 			}
 		}
