@@ -90,7 +90,7 @@ class TestDataGenerator(object):
             x
             for x
             in os.listdir(self.DOT_TARGET_DIR) 
-            if 'tar.gz' not in x and 'txt' not in x
+            if 'tar.gz' not in x and 'txt' not in x and 'json' not in x
         ]
 
         processing_jobs = []

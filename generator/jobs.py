@@ -29,13 +29,25 @@ class GraphExtractor():
         self.graphs = []
 
     def _get_average_run(self):
-        runs = [x for x in os.listdir(self.dir) if re.search(r'^run', x)]
+        dir = self.dir
+        runs = [
+            x
+            for x
+            in os.listdir(self.dir)
+            if re.search(r'^run', x)
+        ]
         
         def run_to_time(run):
-            #todo mkwiek: retrieve actual time
+            partials = os.listdir(os.path.join(dir, run))
+
             return dict(
                 name=run,
-                time=1,
+                time=sum(
+                    map(
+                        lambda x: int(re.search('([0-9]+)(ms)', x).group(1)),
+                        partials
+                    )
+                ),
             )
 
         if len(runs) == 1:
