@@ -42,7 +42,6 @@ class GraphExtractor():
             return runs[0]
         else:
             sorted_runs = sorted(map(run_to_time, runs), key=lambda x: x['time'])
-            print sorted_runs
             return sorted_runs[len(sorted_runs) / 2]['name']
 
     def get_files(self):
@@ -52,7 +51,7 @@ class GraphExtractor():
                 re.search(r'\.dot$', x)]
 
 
-class ProcessGraphJob(workerpool.Job):
+class ProcessGraphJob(object):
     def __init__(self, filename, test_name):
         self.filename = filename
         self.test_name = test_name
