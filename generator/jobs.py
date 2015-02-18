@@ -17,6 +17,7 @@ class DownloadArtifactJob(workerpool.Job):
 
     def run(self):
         urllib.urlretrieve(self.url, self.dir + self.filename)
+        # todo(mkwiek): add info about which test class does the test come from
         subprocess.call(["tar", "-zxvf", self.dir + self.filename,
                          '--strip-components', '6', '-C',
                          self.dir])

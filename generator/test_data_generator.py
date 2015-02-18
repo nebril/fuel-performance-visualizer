@@ -26,6 +26,8 @@ class TestDataGenerator(object):
     CSV_URL = LAST_BUILD_URL_BASE + ('artifact/nailgun/'
                                      'nailgun_perf_test_report.csv')
     CSV_TARGET_PATH = '/usr/share/nginx/html/test_report.csv'
+    FAILED_TESTS_URL = LAST_BUILD_URL_BASE + ('artifact/nailgun/'
+                                              'failed_tests.txt')
     DOT_TARGET_DIR = 'dot/'
     DOT_COPY_DIR = '/usr/share/nginx/html/dot'
     DOT_INDEX_PATH = 'dot/graphs.json'
@@ -47,11 +49,11 @@ class TestDataGenerator(object):
             with open('build_number', 'w') as bn_file:
                 bn_file.write(str(self.current_build_number))
 
-            self._get_csv()
+            #self._get_csv()
 
-            self._get_fresh_dots()
-            self._process_dots()
-            self._move_dot_results()
+            #self._get_fresh_dots()
+            self._process_dots(self._get_priority_tests())
+            #self._move_dot_results()
 
     def _get_csv(self):
         urllib.urlretrieve(self.CSV_URL, self.CSV_TARGET_PATH)
@@ -85,7 +87,7 @@ class TestDataGenerator(object):
         pool.shutdown()
         pool.wait()
 
-    def _process_dots(self):
+    def _process_dots(self, names=None):
         tests = [
             x
             for x
@@ -118,6 +120,16 @@ class TestDataGenerator(object):
         }
         with open(self.DOT_INDEX_PATH, 'w') as graphs_file:
             graphs_file.write(json.dumps(graphs_index))
+
+    def _get_priority_tests(self):
+        # todo(mkwiek): uncomment this when the artifact is available
+        #names = urllib.urlopen(self.LAST_BUILD_INFO).read(30000).split("\n")
+        names = [
+            'nailgun/test/performance/unit/test_notification_operations.py::NotificationOperationsLoadTest::test_notifications_creation',
+            'nailgun/test/performance/unit/test_notification_operations.py::NotificationOperationsLoadTest::test_notifications_retrieval'
+        ]
+
+        return [name.split('::')[-1] for name in names]
 
     def _move_dot_results(self):
         subprocess.call(['mv', self.DOT_TARGET_DIR,  self.DOT_COPY_DIR])
