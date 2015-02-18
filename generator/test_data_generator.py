@@ -47,11 +47,11 @@ class TestDataGenerator(object):
             with open('build_number', 'w') as bn_file:
                 bn_file.write(str(self.current_build_number))
 
-            #self._get_csv()
+            self._get_csv()
 
-            #self._get_fresh_dots()
+            self._get_fresh_dots()
             self._process_dots()
-            #self._move_dot_results()
+            self._move_dot_results()
 
     def _get_csv(self):
         urllib.urlretrieve(self.CSV_URL, self.CSV_TARGET_PATH)
