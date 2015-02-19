@@ -17,10 +17,20 @@ class DownloadArtifactJob(workerpool.Job):
 
     def run(self):
         urllib.urlretrieve(self.url, self.dir + self.filename)
-        # todo(mkwiek): add info about which test class does the test come from
-        subprocess.call(["tar", "-zxvf", self.dir + self.filename,
-                         '--strip-components', '6', '-C',
-                         self.dir])
+        p = subprocess.Popen(["tar", "-zxvf", self.dir + self.filename,
+                         '--strip-components', '6', '-C', self.dir, 
+                         '--show-transformed-names'], stdin=subprocess.PIPE, 
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, err = p.communicate()
+
+        for name in [n for n in output.split('\n') if n.find('run') == -1 and len(n) > 0]:
+            subprocess.call([
+                'mv', os.path.join(self.dir, name),
+                os.path.join(
+                    self.dir,
+                    '{0}::{1}'.format(name, self.filename.split('_')[0])
+                )
+            ])
 
 
 class GraphExtractor():
