@@ -49,11 +49,12 @@ class TestDataGenerator(object):
             with open('build_number', 'w') as bn_file:
                 bn_file.write(str(self.current_build_number))
 
-            #self._get_csv()
+            self._get_csv()
 
-            #self._get_fresh_dots()
+            self._get_fresh_dots()
             self._process_dots(self._get_priority_tests())
-            #self._move_dot_results()
+            self._process_dots()
+            self._move_dot_results()
 
     def _get_csv(self):
         urllib.urlretrieve(self.CSV_URL, self.CSV_TARGET_PATH)
@@ -95,6 +96,11 @@ class TestDataGenerator(object):
             if 'tar.gz' not in x and 'txt' not in x and 'json' not in x
         ]
 
+        if names:
+            tests = filter(lambda x: any(p in x for p in names), tests)
+
+        import pdb; pdb.set_trace()
+
         processing_jobs = []
         for test in tests:
             name = re.search(r'[^0-9._].*', test).group(0)
@@ -123,13 +129,13 @@ class TestDataGenerator(object):
 
     def _get_priority_tests(self):
         # todo(mkwiek): uncomment this when the artifact is available
-        #names = urllib.urlopen(self.LAST_BUILD_INFO).read(30000).split("\n")
+        #names = urllib.urlopen(self.FAILED_TESTS_URL).read(30000).split("\n")
         names = [
             'nailgun/test/performance/unit/test_notification_operations.py::NotificationOperationsLoadTest::test_notifications_creation',
             'nailgun/test/performance/unit/test_notification_operations.py::NotificationOperationsLoadTest::test_notifications_retrieval'
         ]
 
-        return [name.split('::')[-1] for name in names]
+        return ['::'.join(reversed(name.split('::')[-2:])) for name in names]
 
     def _move_dot_results(self):
         subprocess.call(['mv', self.DOT_TARGET_DIR,  self.DOT_COPY_DIR])
