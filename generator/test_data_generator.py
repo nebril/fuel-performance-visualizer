@@ -1,4 +1,17 @@
 # -*- coding: utf-8 -*-
+#    Copyright 2015 Mirantis, Inc.
+#
+#    Licensed under the Apache License, Version 2.0 (the "License"); you may
+#    not use this file except in compliance with the License. You may obtain
+#    a copy of the License at
+#
+#         http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#    License for the specific language governing permissions and limitations
+#    under the License.
 
 import itertools
 import json
@@ -20,7 +33,7 @@ def run_job(job):
 
 class TestDataGenerator(object):
     LAST_BUILD_URL_BASE = ('https://fuel-jenkins.mirantis.com/job/'
-                 'nailgun_performance_tests/lastCompletedBuild/')
+                           'nailgun_performance_tests/lastCompletedBuild/')
     LAST_BUILD_INFO = LAST_BUILD_URL_BASE + 'api/json'
     LAST_BUILD_TAR_BASE = LAST_BUILD_URL_BASE + 'artifact/results/results/'
     CSV_URL = LAST_BUILD_URL_BASE + ('artifact/nailgun/'
@@ -68,9 +81,9 @@ class TestDataGenerator(object):
         os.mkdir(self.DOT_TARGET_DIR)
 
         arts = [
-            x['fileName'] 
-            for x 
-            in self.current_build_info['artifacts'] 
+            x['fileName']
+            for x
+            in self.current_build_info['artifacts']
             if 'tar.gz' in x['fileName']
         ]
 
@@ -92,7 +105,7 @@ class TestDataGenerator(object):
         tests = [
             x
             for x
-            in os.listdir(self.DOT_TARGET_DIR) 
+            in os.listdir(self.DOT_TARGET_DIR)
             if 'tar.gz' not in x and 'txt' not in x and 'json' not in x
         ]
 
@@ -115,11 +128,11 @@ class TestDataGenerator(object):
         process_pool.close()
 
         graphs_index = {
-            k: list(v) 
-            for k,v 
+            k: list(v)
+            for k, v
             in itertools.groupby(
                 processed_data_index,
-                lambda x : x['test_name']
+                lambda x: x['test_name']
             )
         }
         with open(self.DOT_INDEX_PATH, 'w') as graphs_file:
@@ -127,7 +140,7 @@ class TestDataGenerator(object):
 
     def _get_priority_tests(self):
         # todo(mkwiek): uncomment this when the artifact is available
-        #names = urllib.urlopen(self.FAILED_TESTS_URL).read(30000).split("\n")
+        # names = urllib.urlopen(self.FAILED_TESTS_URL).read(30000).split("\n")
         names = [
             'nailgun/test/performance/unit/test_notification_operations.py::NotificationOperationsLoadTest::test_notifications_creation',
             'nailgun/test/performance/unit/test_notification_operations.py::NotificationOperationsLoadTest::test_notifications_retrieval'
