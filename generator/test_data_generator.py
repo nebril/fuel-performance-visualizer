@@ -99,8 +99,6 @@ class TestDataGenerator(object):
         if names:
             tests = filter(lambda x: any(p in x for p in names), tests)
 
-        import pdb; pdb.set_trace()
-
         processing_jobs = []
         for test in tests:
             name = re.search(r'[^0-9._].*', test).group(0)
