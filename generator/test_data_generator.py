@@ -135,6 +135,12 @@ class TestDataGenerator(object):
                 lambda x: x['test_name']
             )
         }
+
+        if names:
+            graphs_index['priority'] = True
+        else:
+            graphs_index['priority'] = False
+
         with open(self.DOT_INDEX_PATH, 'w') as graphs_file:
             graphs_file.write(json.dumps(graphs_index))
 
