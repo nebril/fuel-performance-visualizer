@@ -109,8 +109,11 @@ class TestDataGenerator(object):
             if 'tar.gz' not in x and 'txt' not in x and 'json' not in x
         ]
 
-        if names:
+        if names is not None:
             tests = filter(lambda x: any(p in x for p in names), tests)
+
+        if len(tests) == 0:
+            return
 
         processing_jobs = []
         for test in tests:
