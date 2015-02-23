@@ -11,16 +11,23 @@ angular.module('fuelPerformanceVisualizerApp')
 
 	$http.get(graphsUrl)
 	.success(function(response){
-		var data = {};
-		for(name in response) {
-			var graphs = response[name];
-			graphs = graphs.map(function(graph){
-				angular.extend(graph.graph, {
-					handler_name: graph.graph.path.slice(graph.graph.path.lastIndexOf('/') + 1)
+		var data = {
+			priority: false,
+			graphs: {}
+		};
+		for(var name in response) {
+			if(name === 'priority') {
+				data[name] = response[name];
+			} else {
+				var graphs = response[name];
+				graphs = graphs.map(function(graph){
+					angular.extend(graph.graph, {
+						handler_name: graph.graph.path.slice(graph.graph.path.lastIndexOf('/') + 1)
+					});
+					return graph;
 				});
-				return graph;
-			});
-			data[name] = graphs;
+				data.graphs[name] = graphs;
+			}
 		}	
 		deferred.resolve(data);
 	});

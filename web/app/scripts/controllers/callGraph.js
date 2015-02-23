@@ -5,7 +5,8 @@ angular.module('fuelPerformanceVisualizerApp')
 	var absUrl = $location.absUrl();
 	var absUrlRoot = absUrl.slice(0, absUrl.indexOf('#'));
 
-	$scope.tests = availableGraphs;
+	$scope.tests = availableGraphs.graphs;
+	$scope.onlyFailedTests = availableGraphs.priority;
 	$scope.funcName = 'handle_class';
 	$scope.selectedGraph = null;
 	$scope.selectedNode = null;
