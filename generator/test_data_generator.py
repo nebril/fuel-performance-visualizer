@@ -145,12 +145,7 @@ class TestDataGenerator(object):
             graphs_file.write(json.dumps(graphs_index))
 
     def _get_priority_tests(self):
-        # todo(mkwiek): uncomment this when the artifact is available
-        # names = urllib.urlopen(self.FAILED_TESTS_URL).read(30000).split("\n")
-        names = [
-            'nailgun/test/performance/unit/test_notification_operations.py::NotificationOperationsLoadTest::test_notifications_creation',
-            'nailgun/test/performance/unit/test_notification_operations.py::NotificationOperationsLoadTest::test_notifications_retrieval'
-        ]
+        names = urllib.urlopen(self.FAILED_TESTS_URL).read(30000).split("\n")
 
         return ['::'.join(reversed(name.split('::')[-2:])) for name in names]
 
