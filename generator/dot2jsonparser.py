@@ -50,7 +50,7 @@ class Dot2JSONParser(object):
                         "id": str(int(node.get_name())),
                         "functionName": function_name,
                         "functionLineNumber": function_line_number,
-                        "function_path": function_path,
+                        "functionPath": function_path,
                         "percentage": float(percentage.strip('()%')),
                         "percentage2": float(percentage2.strip('()%')),
                         "callCount": re.match('[0-9]+', times).group(0),

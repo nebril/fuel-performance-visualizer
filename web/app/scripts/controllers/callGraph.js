@@ -23,7 +23,6 @@ angular.module('fuelPerformanceVisualizerApp')
 
 	var addLabels = function(data) {
 		data.nodes.map(function(node) {
-			console.log(node);
 			node.data.label = node.data.functionName + 
 				', ' + node.data.percentage + '%, ' + 
 				node.data.callCount + 'x';

@@ -10,6 +10,8 @@ angular.module('fuelPerformanceVisualizerApp')
 			funcName: '=',
 		},
 		link: function postLink(scope, element, attrs) {
+			scope.dataSelected = {};
+
 			var theGraphElement = element.find('.thegraph');
 			var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
@@ -127,11 +129,22 @@ angular.module('fuelPerformanceVisualizerApp')
 				redrawGraph(this);
 			}
 
+			var hideNode = function() {
+				cy.remove(this);
+				redrawGraph(this);
+			};
+
+			var showNodeDetails = function() {
+				scope.dataSelected = this.data();
+				scope.$apply();
+				$('#nodeModal').modal()
+			};
+
 			var cxtMenuDefaults = {
 				menuRadius: 100, // the radius of the circular menu in pixels
 				selector: 'node', // elements matching this Cytoscape.js selector will trigger cxtmenus
 				commands: [ // an array of commands to list in the menu
-					{
+				{
 					content: 'Hide subgraph with node',
 					select: hideSubgraphAndNode, 
 				},
@@ -142,6 +155,14 @@ angular.module('fuelPerformanceVisualizerApp')
 				{
 					content: 'Hide all siblings',
 					select: hideSiblings,
+				},
+				{
+					content: 'Hide node',
+					select: hideNode,
+				},
+				{
+					content: 'Show details',
+					select: showNodeDetails,
 				},
 				], 
 				fillColor: 'rgba(0, 0, 0, 0.75)', // the background colour of the menu
