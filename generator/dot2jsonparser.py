@@ -39,7 +39,7 @@ class Dot2JSONParser(object):
         for node in self.graph.get_node_list():
             try:
                 function, percentage, percentage2, times = tuple(
-                    node.get_label().split('\\n'))
+                    node.get_label().strip('"').split('\\n'))
                 nodes.append({
                     "data": {
                         "id": str(int(node.get_name())),
