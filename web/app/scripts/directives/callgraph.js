@@ -159,7 +159,7 @@ angular.module('fuelPerformanceVisualizerApp')
 
 			var rebuildGraph = function(funcName) {
 				cy.remove(cy.elements());
-				cy.add(allcy.nodes("[funcName *= '" + funcName + "']").closedNeighborhood());
+				cy.add(allcy.nodes("[functionName *= '" + funcName + "']").closedNeighborhood());
 				redrawGraph();
 			};
 

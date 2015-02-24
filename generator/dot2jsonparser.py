@@ -14,6 +14,7 @@
 #    under the License.
 
 import json
+import re
 import sys
 
 import pydot
@@ -40,13 +41,19 @@ class Dot2JSONParser(object):
             try:
                 function, percentage, percentage2, times = tuple(
                     node.get_label().strip('"').split('\\n'))
+
+                function_path, function_line_number, function_name = tuple(
+                    function.split(':'))
+
                 nodes.append({
                     "data": {
                         "id": str(int(node.get_name())),
-                        "funcName": function,
+                        "functionName": function_name,
+                        "functionLineNumber": function_line_number,
+                        "function_path": function_path,
                         "percentage": float(percentage.strip('()%')),
                         "percentage2": float(percentage2.strip('()%')),
-                        "callCount": times,
+                        "callCount": re.match('[0-9]+', times).group(0),
                         "label": "{0}, {1}, {2}".format(
                             function, percentage, times),
                     },
