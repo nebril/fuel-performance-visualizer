@@ -22,7 +22,8 @@ angular.module('fuelPerformanceVisualizerApp')
 				var graphs = response[name];
 				graphs = graphs.map(function(graph){
 					angular.extend(graph.graph, {
-						handler_name: graph.graph.path.slice(graph.graph.path.lastIndexOf('/') + 1)
+						handler_name: graph.graph.path.slice(graph.graph.path.lastIndexOf('/') + 1),
+						originalFile: graph.graph.path.replace('.dot.json', '') + '.prof'
 					});
 					return graph;
 				});
