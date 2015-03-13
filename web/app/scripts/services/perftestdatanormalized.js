@@ -53,8 +53,6 @@ angular.module('fuelPerformanceVisualizerApp')
 					.value(),
 			};
 
-			console.log(chart);
-
 			deferred.resolve(chart);
 		},
 	});	

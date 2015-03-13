@@ -21,9 +21,9 @@ angular
         controller: 'MainCtrl'
       })
       .when('/time-report', {
-        redirectTo: '/time-report/charts/5'
+        redirectTo: '/time-report/charts'
       })
-      .when('/time-report/trend/:lastDataPoints?', {
+      .when('/time-report/trend', {
         templateUrl: 'views/time-trend.html',
         controller: 'TimeTrendCtrl',
 		resolve: {
@@ -31,8 +31,9 @@ angular
 				return PerfTestDataNormalized;
 			}
 		},
+		reloadOnSearch: false,
       })
-      .when('/time-report/charts/:lastDataPoints?', {
+      .when('/time-report/charts', {
         templateUrl: 'views/time-report.html',
         controller: 'TimeReportCtrl',
 		resolve: {
@@ -40,6 +41,7 @@ angular
 				return PerfTestData;
 			}
 		},
+		reloadOnSearch: false,
       })
       .when('/graph', {
         templateUrl: 'views/graph.html',

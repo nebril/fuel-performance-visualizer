@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fuelPerformanceVisualizerApp')
-.controller('TimeTrendCtrl', function ($scope, $rootScope, $routeParams, testData) {
+.controller('TimeTrendCtrl', function ($scope, $rootScope, $routeParams, $location, testData) {
 	$scope.chart = testData;
 	
 	if(typeof $rootScope.datapoints === 'undefined')
@@ -22,5 +22,6 @@ angular.module('fuelPerformanceVisualizerApp')
 		var slicer = - $scope.datapoints;
 		$scope.chart.data = $scope.chart.originalData.slice(slicer);
 		$rootScope.datapoints = count;
+		$location.search('lastDataPoints', $scope.datapoints);
 	});
 });
