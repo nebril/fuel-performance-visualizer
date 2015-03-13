@@ -21,9 +21,9 @@ angular
         controller: 'MainCtrl'
       })
       .when('/time-report', {
-        redirectTo: '/time-report/charts'
+        redirectTo: '/time-report/charts/5'
       })
-      .when('/time-report/trend', {
+      .when('/time-report/trend/:lastDataPoints?', {
         templateUrl: 'views/time-trend.html',
         controller: 'TimeTrendCtrl',
 		resolve: {
@@ -32,7 +32,7 @@ angular
 			}
 		},
       })
-      .when('/time-report/charts', {
+      .when('/time-report/charts/:lastDataPoints?', {
         templateUrl: 'views/time-report.html',
         controller: 'TimeReportCtrl',
 		resolve: {

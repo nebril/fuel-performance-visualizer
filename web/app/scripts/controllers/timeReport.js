@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fuelPerformanceVisualizerApp')
-.controller('TimeReportCtrl', function ($scope, $rootScope, $window, testData) {
+.controller('TimeReportCtrl', function ($scope, $rootScope, $window, $routeParams, testData) {
 	var smallChartXLabels = 6;
 	var bigChartXLabels = 15;
 	$scope.config = {
@@ -22,6 +22,9 @@ angular.module('fuelPerformanceVisualizerApp')
 
 	if(typeof $rootScope.datapoints === 'undefined')
 		$rootScope.datapoints = 5;
+
+	if('lastDataPoints' in $routeParams)
+		$rootScope.datapoints = parseInt($routeParams.lastDataPoints);
 
 	if(typeof $rootScope.search === 'undefined')
 		$rootScope.search = {

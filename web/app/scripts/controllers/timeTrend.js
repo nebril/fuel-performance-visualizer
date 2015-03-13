@@ -1,10 +1,14 @@
 'use strict';
 
 angular.module('fuelPerformanceVisualizerApp')
-.controller('TimeTrendCtrl', function ($scope, $rootScope, testData) {
+.controller('TimeTrendCtrl', function ($scope, $rootScope, $routeParams, testData) {
 	$scope.chart = testData;
+	
 	if(typeof $rootScope.datapoints === 'undefined')
 		$rootScope.datapoints = 10;
+
+	if('lastDataPoints' in $routeParams)
+		$rootScope.datapoints = parseInt($routeParams.lastDataPoints);
 
 	$scope.chartType = 'line';
 	$scope.config = {
