@@ -32,7 +32,7 @@ def run_job(job):
 
 
 class TestDataGenerator(object):
-    LAST_BUILD_URL_BASE = ('https://fuel-jenkins.mirantis.com/job/'
+    LAST_BUILD_URL_BASE = ('https://ci.fuel-infra.org/job/'
                            'nailgun_performance_tests/lastCompletedBuild/')
     LAST_BUILD_INFO = LAST_BUILD_URL_BASE + 'api/json'
     LAST_BUILD_TAR_BASE = LAST_BUILD_URL_BASE + 'artifact/results/results/'
